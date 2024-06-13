@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import GenderCheckbox from './GenderCheckbox'
 import { Link } from 'react-router-dom'
-import { set } from 'mongoose'
+import useSignup from '../../hooks/useSignup'
 
 const SignUp = () => {
     const [inputs, setInputs] = useState({
@@ -12,13 +12,15 @@ const SignUp = () => {
         gender: ''
     })
 
+    const { loading, signup } = useSignup()
+
     const handleCheckboxChange = (gender) => {
-        setInputs({...inputs, gender})
+        setInputs({ ...inputs, gender })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(inputs)
+        await signup(inputs)
     }
 
     return (
@@ -43,26 +45,26 @@ const SignUp = () => {
                             <span className='text-base label-text'>Username</span>
                         </label>
                         <input type='text' placeholder='jacksparrow' className='w-full input input-bordered h-10'
-                        value={inputs.username}
-                        onChange={(e) => setInputs({ ...inputs, username: e.target.value})} />
+                            value={inputs.username}
+                            onChange={(e) => setInputs({ ...inputs, username: e.target.value })} />
                     </div>
                     <div>
                         <label className='label'>
                             <span className='text-base label-text'>Password</span>
                         </label>
                         <input type='password' placeholder='********' className='w-full input input-bordered h-10'
-                        value={inputs.password}
-                        onChange={(e) => setInputs({ ...inputs, password: e.target.value})} />
+                            value={inputs.password}
+                            onChange={(e) => setInputs({ ...inputs, password: e.target.value })} />
                     </div>
                     <div>
                         <label className='label'>
                             <span className='text-base label-text'>Confirm Password</span>
                         </label>
                         <input type='password' placeholder='********' className='w-full input input-bordered h-10'
-                        value={inputs.confirmPassword}
-                        onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value})} />
+                            value={inputs.confirmPassword}
+                            onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} />
                     </div>
-                    <GenderCheckbox onCheckboxChange = {handleCheckboxChange} selectedGender={inputs.gender} />
+                    <GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
                     <div className='text-sm text-left mt-1 mb-1'>
                         Already have an account?&nbsp;
                         <Link to={'/login'} className='hover:underline hover:text-blue-600 mt-2 inline-block'>
