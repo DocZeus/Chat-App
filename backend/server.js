@@ -5,12 +5,14 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
 import messageRoutes from './routes/message.routes.js';
 import userRoutes from './routes/user.routes.js';
+
 import connectToMongoDB from './db/connectToMongoDB.js';
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 dotenv.config();
+
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json()); //To parse from req.body
 app.use(cookieParser());
