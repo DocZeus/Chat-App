@@ -18,7 +18,7 @@ const Conversation = ({ conversation, lastIdx }) => {
                     <div className='flex gap-3 justify-between'>
                         <p className='font-bold text-gray-200'>{conversation.fullName}</p>
                         {/* Apply real-time here */}
-                        <span className='text-xl'></span>
+                        {/* <span className='text-xl'>something here to for aesthetic</span> */}
                     </div>
                 </div>
             </div>
