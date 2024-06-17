@@ -7,13 +7,13 @@ import useListenMessages from "../../hooks/useListenMessages";
 const Messages = () => {
     const { messages, loading } = useGetMessages();
     useListenMessages();
-    const lastMessageRef = useRef()
+    const lastMessageRef = useRef();
 
     useEffect(() => {
         setTimeout(() => {
             lastMessageRef.current?.scrollIntoView({ behaviour: "smooth" });
-        }, 100)
-    }, [messages])
+        }, 100);
+    }, [messages]);
 
     return (
         <div className="px-4 flex-1 overflow-auto">
