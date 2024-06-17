@@ -9,7 +9,7 @@ const useListenMessages = () => {
 
     useEffect(() => {
         socket?.on("newMessage", (newMessage) => {
-            const check = newMessage.receiverId === selectedConversation._id
+            const check = selectedConversation && newMessage.receiverId === selectedConversation._id
             console.log(selectedConversation)
             if (check) {
                 setMessages([...messages, newMessage])
