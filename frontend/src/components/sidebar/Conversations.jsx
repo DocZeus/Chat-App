@@ -15,7 +15,7 @@ const Conversations = () => {
                     key={conversation._id}
                     conversation={conversation}
                     lastIdx={idx === conversations.length - 1}
-                    isSelected = {selectedConversation?.id === conversation._id}
+                    isSelected = {selectedConversation?._id === conversation._id}
                     onClick = {() => setSelectedConversation(conversation)}
                 />
             ))}
