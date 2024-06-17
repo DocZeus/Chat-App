@@ -9,14 +9,14 @@ const useListenMessages = () => {
 
     useEffect(() => {
         socket?.on("newMessage", (newMessage) => {
-            const check = newMessage.receiverId === selectedConversation.id;
+            const check = newMessage.receiverId === selectedConversation._id;
             console.log(selectedConversation);
-            newMessage.shouldShake = true;
-            const sound = new Audio(notificationSound);
-            sound.play();
             if (check) {
                 setMessages([...messages, newMessage])
             }
+            newMessage.shouldShake = true;
+            const sound = new Audio(notificationSound);
+            sound.play();
         });
         //not listening more than once
         return () => socket?.off("newMessage");
