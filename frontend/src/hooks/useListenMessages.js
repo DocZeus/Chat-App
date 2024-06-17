@@ -12,7 +12,7 @@ const useListenMessages = () => {
 
     useEffect(() => {
         const handleNewMessage = (newMessage) => {
-            if (newMessage.receiverId === selectedConversation?._id) {
+            if (newMessage.receiverId === selectedConversation.id) {
                 setMessages((messages) => [...messages, newMessage]);
                 newMessage.shouldShake = true;
                 const sound = new Audio(notificationSound);
