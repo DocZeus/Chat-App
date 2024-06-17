@@ -5,22 +5,30 @@ import notificationSound from "../assets/sound/notification.mp3";
 
 const useListenMessages = () => {
     const { socket } = useSocketContext();
-    const { messages, setMessages, selectedConversation } = useConversation();
+    const { setMessages, selectedConversation } = useConversation(state => ({
+        setMessages: state.setMessages,
+        selectedConversation: state.selectedConversation,
+    }));
 
     useEffect(() => {
-        socket?.on("newMessage", (newMessage) => {
-            const check = newMessage.receiverId === selectedConversation._id;
-            console.log(selectedConversation);
-            if (check) {
-                setMessages([...messages, newMessage])
+        const handleNewMessage = (newMessage) => {
+            if (newMessage.receiverId === selectedConversation?._id) {
+                setMessages((prevMessages) => [...prevMessages, newMessage]);
+                newMessage.shouldShake = true;
+                const sound = new Audio(notificationSound);
+                sound.play();
             }
-            newMessage.shouldShake = true;
-            const sound = new Audio(notificationSound);
-            sound.play();
-        });
-        //not listening more than once
-        return () => socket?.off("newMessage");
-    }, [socket, setMessages, messages, selectedConversation]);
+        };
+
+        socket?.on("newMessage", handleNewMessage);
+
+        // Cleanup function to remove the listener
+        return () => {
+            socket?.off("newMessage", handleNewMessage);
+        };
+    }, [socket, setMessages, selectedConversation]);
+
+    return null;
 };
 
 export default useListenMessages;
