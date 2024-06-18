@@ -28,11 +28,6 @@ export const SocketContextProvider = ({ children }) => {
 				setOnlineUsers(users);
 			});
 
-			socket.on("newMessage", (message) => {
-                console.log("New message received:", message);
-                // Handle new message, update Zustand or other state management hooks
-            });
-
 			return () => socket.close();
 		} else {
 			if (socket) {
